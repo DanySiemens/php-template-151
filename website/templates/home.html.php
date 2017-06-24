@@ -18,7 +18,7 @@
 		}
 		else {
 		?><a href="#">Post Erstellen</a>
-		<a href="#">Ausloggen</a><?php
+		<a href="Logout">Ausloggen</a><?php
 		}
 		?>
 		<?php
