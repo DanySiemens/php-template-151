@@ -8,39 +8,28 @@ use dany\Service\Security\CSRFProtectionService;
 
 class RegisterController
 {
-	/**
-	 * @var ihrname\SimpleTemplateEngine Template engines to render output
-	 */
 	private $template;
-	
 	private $registerService;
-	
 	private $csrfService;
-	/**
-	 * @param ihrname\SimpleTemplateEngine
-	 * @param PDO
-	 */
 	public function __construct(SimpleTemplateEngine $template, RegisterService $registerService, CSRFProtectionService $csrfProtection)
 	{
 		$this->template = $template;
 		$this->registerService = $registerService;
 		$this->csrfService = $csrfProtection;
 	}
-	
 	public function showRegister()
 	{
 		echo $this->template->render("register.html.php", ["csrf" => $this->csrfService->getHtmlCode("csrfRegister")]);
 	}
-	
 	public function register(array $data)
 	{
 		if(array_key_exists("csrf", $data))
 		{
-			if(!$this->csrfService->validateToken("csrfRegister", $data["csrf"]))
-			{
-				$this->showRegister();
-				return;
-			}
+		if(!$this->csrfService->validateToken("csrfRegister", $data["csrf"]))
+		{
+			$this->showRegister();
+			return;
+		}
 		}
 		else
 		{
