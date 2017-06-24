@@ -1,12 +1,15 @@
 {
     "name": "ihrname/Datenbankprojekt",
     "type": "project",
-    "autoload": {
-        "psr-4": {
-            "dany\\": "src/"
+    "autoload": 
+    {
+        "psr-4": 
+        {
+            "dany\\":"src/"
         }
     },
-    "require": {
+    "require": 
+    {
         "swiftmailer/swiftmailer": "v5.4.*"
     }
 }
