@@ -1,9 +1,9 @@
 <?php
-namespace dany\Service\Register;
+ namespace dany\Service\Register;
 
-Interface RegisterService
-{
-	public function reg($username, $password);
-	public function chpw($pw, $url);
-	public function acti($url, $userid);
-}
+ Interface RegisterService
+ {
+	 public function reg($username, $password);
+	 public function chpw($pw, $url);
+	 public function acti($url, $userid);
+ }
