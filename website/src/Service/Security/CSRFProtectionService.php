@@ -3,39 +3,13 @@ namespace dany\Service\Security;
 
 class CSRFProtectionService 
 {
-
 	private function store_in_session($key,$value)
 	{
-		if (isset($_SESSION))
-		{
-			$_SESSION[$key]=$value;
-		}
-	}
-	private function unset_session($key)
+	if (isset($_SESSION))
 	{
-		$_SESSION[$key]=' ';
-		unset($_SESSION[$key]);
+		$_SESSION[$key]=$value;
 	}
-	private function get_from_session($key)
-	{
-		if (isset($_SESSION[$key]))
-		{
-			return $_SESSION[$key];
-		}
-		else { return false; }
 	}
-
-	public function validateToken($uid, $sentToken) 
-	{
-		$token = $this->get_from_session($uid);
-		if (!is_string($sentToken) OR !is_string($token)) {
-			return false;
-		}
-		$result = hash_equals($token, $sentToken);
-		$this->unset_session($uid);
-		return $result;
-	}
-
 	public function generateToken($uid) 
 	{
 		$token = bin2hex(random_bytes(64));
@@ -46,4 +20,28 @@ class CSRFProtectionService
 	{
 		return "<input type='hidden' name='csrf' value='".$this->generateToken($uid)."'/>";
 	}
+	private function unset_session($key)
+	{
+		$_SESSION[$key]=' ';
+		unset($_SESSION[$key]);
+	}
+	public function validateToken($uid, $sentToken) 
+	{
+		$token = $this->get_from_session($uid);
+		if (!is_string($sentToken) OR !is_string($token)) {
+			return false;
+		}
+		$result = hash_equals($token, $sentToken);
+		$this->unset_session($uid);
+		return $result;
+	}	private function get_from_session($key)
+	{
+	if (isset($_SESSION[$key]))
+	{
+		return $_SESSION[$key];
+	}
+		else { return false; }
+	}
+
+
 }
